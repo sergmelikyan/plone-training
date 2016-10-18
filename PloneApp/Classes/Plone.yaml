@@ -4,3 +4,13 @@ Namespaces:
   apps: io.murano.applications
 Name:  Plone
 Extends: apps:SingleServerApplication
+
+Properties:
+  deploymentPath:
+    Contract: $.string()
+    Default: '/opt/plone'
+  adminPassword:
+    Contract: $.string().notNull()
+  listeningPort:
+    Contract: $.int()
+    Default: 8080
