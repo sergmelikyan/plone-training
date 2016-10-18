@@ -1,2 +1,4 @@
 FullName: com.yourdomain.HelloWorld
 Type: Application
+Classes:
+    com.yourdomain.HelloWorld: HelloWorld.yaml

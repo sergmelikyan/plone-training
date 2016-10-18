@@ -1,0 +1,10 @@
+Name: com.yourdomain.HelloWorld
+
+Extends: io.murano.Application
+
+Methods:
+    deploy:
+      Body:
+        - $reporter: $this.find('io.murano.Environment').reporter
+        - $reporter.report($this, "Hello, World!")
+
