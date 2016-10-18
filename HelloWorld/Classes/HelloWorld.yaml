@@ -2,9 +2,13 @@ Name: com.yourdomain.HelloWorld
 
 Extends: io.murano.Application
 
-Methods:
-    deploy:
-      Body:
-        - $reporter: $this.find('io.murano.Environment').reporter
-        - $reporter.report($this, "Hello, World!")
+Properties:
+  username:
+    Usage: In
+    Contract: $.string().notNull()
 
+Methods:
+  deploy:
+    Body:
+      - $reporter: $this.find('io.murano.Environment').reporter
+      - $reporter.report($this, "Hello, " + $this.username + "!")
