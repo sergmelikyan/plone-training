@@ -1,0 +1,52 @@
+#  Plone uses GPL version 2 as its license. As of summer 2009, there are
+#  no active plans to upgrade to GPL version 3.
+#  You may obtain a copy of the License at
+#
+#       http://www.gnu.org
+#
+
+Namespaces:
+  =: com.yourdomain
+  apps: io.murano.applications
+  res: io.murano.resources
+  sys: io.murano.system
+  std: io.murano
+  conf: io.murano.configuration
+
+Name: Plone
+
+Extends:
+  - apps:SingleServerApplication
+  - apps:OpenStackSecurityConfigurable
+
+
+Properties:
+  deploymentPath:
+    Contract: $.string()
+    Default: '/opt/plone'
+  adminPassword:
+    Contract: $.string().notNull()
+  listeningPort:
+    Contract: $.int()
+    Default: 8080
+
+Methods:
+  onInstallServer:
+    Arguments:
+      - server:
+          Contract: $.class(res:Instance).notNull()
+      - serverGroup:
+          Contract: $.class(apps:ServerGroup).notNull()
+    Body:
+      - $file: sys:Resources.string('install-plone.sh').replace({"$1" => $this.deploymentPath, "$2" => $this.adminPassword, "$3" => $this.listeningPort})
+      - conf:Linux.runCommand($server.agent, $file)
+      - $addr: $server.ipAddresses.last()
+      - $this.report(format('Plone is up and running at {0}:{1}', $addr, $this.listeningPort))
+
+  getSecurityRules:
+    Body:
+      - Return:
+          - FromPort: $this.listeningPort
+            ToPort: $this.listeningPort
+            IpProtocol: tcp
+            External: true
