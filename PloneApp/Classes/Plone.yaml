@@ -1,0 +1,6 @@
+Namespaces:
+  =: com.yourdomain
+  std: io.murano
+  apps: io.murano.applications
+Name:  Plone
+Extends: apps:SingleServerApplication
