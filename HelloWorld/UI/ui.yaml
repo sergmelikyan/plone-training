@@ -1,0 +1,12 @@
+Application:
+  ?:
+     type: com.yourdomain.HelloWorld
+  username: $.step1.username
+
+Forms:
+  - step1:
+      fields:
+        - name: username
+          type: string
+          description: Username of the user to say 'hello' to
+          required: true
