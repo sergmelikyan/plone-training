@@ -9,7 +9,9 @@ Namespaces:
 
 Name:  Plone
 
-Extends: apps:SingleServerApplication
+Extends: 
+  - apps:SingleServerApplication
+  - apps:OpenStackSecurityConfigurable
 
 Properties:
   deploymentPath:
@@ -33,3 +35,11 @@ Methods:
       - conf:Linux.runCommand($server.agent, $file)
       - $addr: $server.ipAddresses.last()
       - $this.report(format('Plone is up and running at {0}:{1}', $addr, $this.listeningPort))
+
+  getSecurityRules:
+    Body:
+      - Return:
+          - FromPort: $this.listeningPort
+            ToPort: $this.listeningPort
+            IpProtocol: tcp
+            External: true
