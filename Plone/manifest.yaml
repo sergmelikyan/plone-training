@@ -1,0 +1,11 @@
+FullName: com.yourdomain.Plone
+Name: Plone CMS
+Description: Simple Plone Deployment
+Type: Application
+Author: John Doe
+
+Classes:
+ com.yourdomain.Plone: Plone.yaml
+
+Require:
+  io.murano.applications:
